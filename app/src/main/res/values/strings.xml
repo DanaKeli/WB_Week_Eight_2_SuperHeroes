@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">WB_Week_five_2</string>
+    <string name="super_heroes">Super Heroes</string>
+    <string name="full_name">Full name</string>
+    <string name="place_of_birth">Place of birth</string>
+    <string name="gender">Gender</string>
+    <string name="race">Race</string>
+    <string name="intelligence">Intelligence</string>
+    <string name="strength">Strength</string>
+    <string name="speed">Speed</string>
+    <string name="durability">Durability</string>
+    <string name="power">Power</string>
+    <string name="combat">Combat</string>
+</resources>
