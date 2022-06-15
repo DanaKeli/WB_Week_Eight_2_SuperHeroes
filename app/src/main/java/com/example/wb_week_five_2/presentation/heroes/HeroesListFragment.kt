@@ -1,19 +1,17 @@
 package com.example.wb_week_five_2.presentation.heroes
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.wb_week_five_2.R
 import com.example.wb_week_five_2.databinding.FragmentHeroesListBinding
 import com.example.wb_week_five_2.presentation.hero.HeroFragment
-
 
 class HeroesListFragment : Fragment() {
 
@@ -39,7 +37,7 @@ class HeroesListFragment : Fragment() {
 
         fm = requireActivity().supportFragmentManager
         vm = ViewModelProvider(this)[HeroesVM::class.java]
-        vm.onInitView()
+        context?.let { vm.onInitView(it) }
         vm.heroesList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }

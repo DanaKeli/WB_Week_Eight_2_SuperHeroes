@@ -4,13 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class Response(
-    val response: String,
-    @SerializedName("results-for")
-    val resultFor: String,
-    val results: List<Heroes>
-)
-
 @Parcelize
 data class Heroes(
     @SerializedName("id")
@@ -28,7 +21,7 @@ data class Heroes(
     @SerializedName("appearance")
     val appearance: Appearance,
 
-    @SerializedName("image")
+    @SerializedName("images")
     val image: Image
 ) : Parcelable
 
@@ -64,7 +57,7 @@ data class PowerStats(
 
 @Parcelize
 data class Image(
-    @SerializedName("url")
+    @SerializedName("sm")
     val url: String
 ) : Parcelable
 
