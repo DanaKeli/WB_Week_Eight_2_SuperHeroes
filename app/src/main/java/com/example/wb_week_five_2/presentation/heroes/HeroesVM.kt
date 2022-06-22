@@ -1,7 +1,6 @@
 package com.example.wb_week_five_2.presentation.heroes
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +13,7 @@ import kotlinx.coroutines.launch
 class HeroesVM : ViewModel() {
 
     val heroesList = MutableLiveData<List<Heroes>>()
+    val clickedHero = MutableLiveData<Heroes>()
 
     fun onInitView(context: Context) {
         val repository = HeroRepositoryImp(context)
@@ -28,5 +28,9 @@ class HeroesVM : ViewModel() {
                 heroesList.postValue(repository.getHeroes())
             }
         }
+    }
+
+    fun onClick(hero: Heroes) {
+        clickedHero.postValue(hero)
     }
 }

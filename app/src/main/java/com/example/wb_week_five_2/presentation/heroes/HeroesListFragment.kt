@@ -4,28 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.wb_week_five_2.R
 import com.example.wb_week_five_2.databinding.FragmentHeroesListBinding
-import com.example.wb_week_five_2.presentation.hero.HeroFragment
+import com.example.wb_week_five_2.presentation.App
+import com.example.wb_week_five_2.presentation.Screens
+import com.github.terrakok.cicerone.Router
 
 class HeroesListFragment : Fragment() {
-
-    companion object {
-        const val REQUEST_KEY = "requestKey"
-        const val BUNDLE_KEY = "bundleKey"
-    }
 
     private var _binding: FragmentHeroesListBinding? = null
     private val binding: FragmentHeroesListBinding get() = _binding!!
     private lateinit var adapter: HeroesAdapter
-    private lateinit var fm: FragmentManager
-
     private lateinit var vm: HeroesVM
+    private lateinit var router: Router
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +27,13 @@ class HeroesListFragment : Fragment() {
         _binding = FragmentHeroesListBinding.inflate(layoutInflater, container, false)
 
         initViews()
-
-        fm = requireActivity().supportFragmentManager
-        vm = ViewModelProvider(this)[HeroesVM::class.java]
+        vm = ViewModelProvider(requireActivity())[HeroesVM::class.java]
+        router = App.INSTANCE.router
         context?.let { vm.onInitView(it) }
         vm.heroesList.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        setupClickListener()
+        onItemClickListener()
         return binding.root
     }
 
@@ -52,16 +44,19 @@ class HeroesListFragment : Fragment() {
 
     private fun initViews() {
         adapter = HeroesAdapter(requireContext())
-        binding.rvHeroesList.adapter = adapter
-        binding.rvHeroesList.layoutManager = GridLayoutManager(context, 3)
+        binding.apply {
+            rvHeroesList.adapter = adapter
+            rvHeroesList.layoutManager = GridLayoutManager(context, 3)
+            btnInfo.setOnClickListener {
+                router.navigateTo(Screens.info())
+            }
+        }
     }
 
-    private fun setupClickListener() {
+    private fun onItemClickListener() {
         adapter.onItemClickListener = {
-            fm.setFragmentResult(REQUEST_KEY, bundleOf(BUNDLE_KEY to it))
-            fm.beginTransaction()
-                .replace(R.id.main_container, HeroFragment())
-                .commit()
+            router.navigateTo(Screens.hero(it))
+            vm.onClick(it)
         }
     }
 }

@@ -11,4 +11,9 @@
     <string name="durability">Durability</string>
     <string name="power">Power</string>
     <string name="combat">Combat</string>
+    <string name="about">О приложении</string>
+    <string name="name">Developer: Dana Keli</string>
+    <string name="date">Date of creation: 30.05.2022</string>
+    <string name="link">https://github.com/DanaKeli/WB_Week_Eight_2_SuperHeroes</string>
+    <string name="btn_info">Info</string>
 </resources>
